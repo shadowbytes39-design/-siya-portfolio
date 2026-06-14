@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Siya — Business Administration · Finance & Operations Portfolio</title>
+<meta name="description" content="Siya — B.Com (Hons) student at Dyal Singh College, University of Delhi. Finance enthusiast, operations & documentation specialist building toward a career in business administration." />
+<meta name="keywords" content="Siya, B.Com Hons, Dyal Singh College, University of Delhi, Finance, Business Administration, Operations, Documentation" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Siya — Business Administration · Finance & Operations" />
+<meta property="og:description" content="B.Com (Hons) student, administrative professional, and future business leader. Explore education, experience, skills and achievements." />
+<meta property="og:image" content="./assets/siya-hero.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#0a0a0c" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#f4f1ec',
+          dim: '#9b99a3',
+          bg: '#0a0a0c',
+          panel: '#101013',
+          gold: '#d8b873',
+          golddim: '#a98f5c',
+          line: 'rgba(255,255,255,0.08)'
+        },
+        fontFamily: {
+          display: ['Anton', 'sans-serif'],
+          body: ['Manrope', 'sans-serif'],
+          mono: ['Space Mono', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --ink:#f4f1ec;
+    --dim:#9b99a3;
+    --gold:#d8b873;
+    --line:rgba(255,255,255,.08);
+  }
+  *{ scroll-behavior:smooth; }
+  html,body{ background:var(--bg); color:var(--ink); overflow-x:hidden; }
+  body{ font-family:'Manrope',sans-serif; }
+
+  /* fine ledger-grid texture */
+  .ledger-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,.9), transparent 70%);
+    opacity:.5;
+  }
+
+  canvas#particles{ position:fixed; inset:0; z-index:1; pointer-events:none; }
+
+  .cursor-glow{
+    position:fixed; top:0; left:0; width:480px; height:480px; border-radius:50%;
+    background: radial-gradient(circle, rgba(216,184,115,.10) 0%, rgba(216,184,115,0) 70%);
+    transform: translate(-50%,-50%);
+    pointer-events:none; z-index:2; mix-blend-mode: screen;
+    transition: opacity .3s ease;
+  }
+
+  /* glass cards */
+  .glass{
+    background: rgba(255,255,255,.035);
+    border:1px solid var(--line);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 1.25rem;
+  }
+  .glass-strong{
+    background: rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  .nav-glass{
+    background: rgba(10,10,12,.55);
+    border-bottom:1px solid var(--line);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .card-hover{ transition: transform .5s cubic-bezier(.2,.8,.2,1), border-color .4s ease, box-shadow .5s ease; }
+  .card-hover:hover{
+    transform: translateY(-6px);
+    border-color: rgba(216,184,115,.35);
+    box-shadow: 0 20px 60px -20px rgba(216,184,115,.25);
+  }
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    letter-spacing:.35em;
+    font-size:.7rem;
+    text-transform:uppercase;
+    color: var(--gold);
+  }
+
+  .display{ font-family:'Anton',sans-serif; text-transform:uppercase; line-height:.92; letter-spacing:.01em; }
+
+  /* hero name reveal */
+  .hero-name span{ display:inline-block; overflow:hidden; }
+  .hero-name .word{ display:inline-block; transform:translateY(110%); will-change: transform; }
+
+  /* scroll cue */
+  .scroll-line{
+    width:1px; height:64px; background: rgba(255,255,255,.18); position:relative; overflow:hidden;
+  }
+  .scroll-line::after{
+    content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
+    background: var(--gold); animation: scrollDrip 2.4s ease-in-out infinite;
+  }
+  @keyframes scrollDrip{
+    0%{ top:-100%; } 50%{ top:0; } 100%{ top:100%; }
+  }
+
+  /* magnetic buttons */
+  .magnetic{ display:inline-flex; will-change: transform; transition: transform .15s ease-out; }
+  .magnetic .magnetic-inner{ transition: transform .15s ease-out; }
+
+  .btn-primary{
+    font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.25em; text-transform:uppercase;
+    padding: 1.1rem 2rem; border-radius: 999px; border:1px solid rgba(255,255,255,.16);
+    color:var(--ink); position:relative; overflow:hidden; background: rgba(255,255,255,.03);
+    transition: border-color .4s ease, color .4s ease;
+  }
+  .btn-primary::before{
+    content:''; position:absolute; inset:0; background: var(--gold); transform: translateY(101%);
+    transition: transform .45s cubic-bezier(.2,.8,.2,1); z-index:-1; border-radius:999px;
+  }
+  .btn-primary:hover{ color:#0a0a0c; border-color: var(--gold); }
+  .btn-primary:hover::before{ transform: translateY(0%); }
+
+  /* nav link underline */
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:''; position:absolute; left:0; bottom:-6px; width:0%; height:1px; background:var(--gold);
+    transition: width .35s ease;
+  }
+  .nav-link:hover::after{ width:100%; }
+
+  /* skill bars */
+  .skill-track{ height:4px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; }
+  .skill-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--golddim),var(--gold)); transition: width 1.4s cubic-bezier(.16,1,.3,1); }
+
+  /* tag pill */
+  .pill{
+    font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.05em;
+    padding:.5rem 1rem; border-radius:999px; border:1px solid var(--line); color:var(--dim);
+    transition: all .35s ease;
+  }
+  .pill:hover{ color:var(--gold); border-color: rgba(216,184,115,.4); background: rgba(216,184,115,.06); transform: translateY(-2px); }
+
+  /* number font for stats */
+  .stat{ font-family:'Anton',sans-serif; font-size: clamp(2.6rem,6vw,4.5rem); line-height:1; }
+
+  /* generic reveal targets */
+  .reveal{ opacity:0; transform: translateY(40px); }
+
+  /* divider numbering */
+  .sec-index{ font-family:'Space Mono',monospace; font-size:5rem; line-height:1; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.12); }
+
+  @media (max-width:768px){
+    .stat{ font-size: clamp(2.2rem,12vw,3.2rem); }
+  }
+
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-track{ background: var(--bg); }
+  ::-webkit-scrollbar-thumb{ background: #2a2a30; border-radius:4px; }
+
+  /* mobile menu */
+  .mobile-menu{
+    position:fixed; inset:0; z-index:60; background: rgba(8,8,10,.97); backdrop-filter: blur(20px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem;
+    transform: translateY(-100%); transition: transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  .mobile-menu.open{ transform: translateY(0%); }
+
+  section[id]{ scroll-margin-top: 5.5rem; }
+</style>
+</head>
+
+<body class="bg-bg text-ink antialiased selection:bg-gold selection:text-bg">
+
+<div class="ledger-grid"></div>
+<canvas id="particles"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ===================== NAV ===================== -->
+<nav class="fixed top-0 left-0 w-full z-50 nav-glass">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+    <a href="#hero" class="font-display text-xl tracking-widest">SIYA<span class="text-gold">.</span></a>
+
+    <div class="hidden md:flex items-center gap-10 font-mono text-[11px] tracking-[0.25em] uppercase text-dim">
+      <a href="#about" class="nav-link hover:text-ink transition-colors">About</a>
+      <a href="#education" class="nav-link hover:text-ink transition-colors">Education</a>
+      <a href="#experience" class="nav-link hover:text-ink transition-colors">Experience</a>
+      <a href="#skills" class="nav-link hover:text-ink transition-colors">Skills</a>
+      <a href="#contact" class="nav-link hover:text-ink transition-colors">Contact</a>
+    </div>
+
+    <a href="mailto:singhsiya045@gmail.com" class="hidden md:inline-flex magnetic">
+      <span class="btn-primary magnetic-inner">Email Me</span>
+    </a>
+
+    <button id="menuBtn" class="md:hidden flex flex-col gap-1.5 w-8" aria-label="Open menu">
+      <span class="h-px w-full bg-ink"></span>
+      <span class="h-px w-full bg-ink"></span>
+      <span class="h-px w-2/3 bg-ink self-end"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button id="closeMenu" class="absolute top-7 right-7 text-2xl">&times;</button>
+  <a href="#about" class="mobile-link font-display text-3xl tracking-widest">ABOUT</a>
+  <a href="#education" class="mobile-link font-display text-3xl tracking-widest">EDUCATION</a>
+  <a href="#experience" class="mobile-link font-display text-3xl tracking-widest">EXPERIENCE</a>
+  <a href="#skills" class="mobile-link font-display text-3xl tracking-widest">SKILLS</a>
+  <a href="#contact" class="mobile-link font-display text-3xl tracking-widest">CONTACT</a>
+  <a href="mailto:singhsiya045@gmail.com" class="btn-primary mt-4">Email Me</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero" class="relative min-h-screen flex flex-col overflow-hidden">
+
+  <!-- character image -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-[#0a0a0c]"></div>
+    <img id="heroImg" src="./assets/siya-hero.jpg" alt="3D illustrated portrait of Siya at her workstation"
+         class="absolute right-0 top-0 h-full w-full md:w-[68%] object-cover object-[75%_center] opacity-90" />
+    <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/70 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/40"></div>
+  </div>
+
+  <div class="relative z-10 flex-1 max-w-[1500px] w-full mx-auto px-6 md:px-12 pt-28 md:pt-32 flex flex-col justify-center">
+    <p class="eyebrow reveal-hero mb-6">Portfolio · 2026 · New Delhi, India</p>
+
+    <h1 class="hero-name display text-[18vw] md:text-[10vw] lg:text-[9rem] xl:text-[10.5rem] tracking-tight">
+      <span class="block"><span class="word">SIYA</span></span>
+    </h1>
+
+    <p class="reveal-hero mt-6 md:mt-8 font-mono text-[11px] md:text-sm tracking-[0.3em] uppercase text-dim max-w-2xl">
+      Business Administration · Finance Enthusiast · Operations &amp; Documentation Specialist
+    </p>
+
+    <p class="reveal-hero mt-3 text-sm md:text-base text-dim/80 max-w-md">
+      B.Com (Hons) Student &nbsp;•&nbsp; Administrative Professional &nbsp;•&nbsp; Future Business Leader
+    </p>
+  </div>
+
+  <div class="relative z-10 max-w-[1500px] w-full mx-auto px-6 md:px-12 pb-10 flex items-end justify-between">
+    <div class="reveal-hero flex items-center gap-4">
+      <span class="font-mono text-[11px] tracking-[0.3em] uppercase text-dim">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+    <div class="reveal-hero hidden sm:flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-dim">
+      <span>CGPA</span><span class="text-gold">8.5</span><span>/ 10.0</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="relative z-10 py-28 md:py-36 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+      <div class="lg:col-span-4 reveal">
+        <p class="eyebrow mb-4">01 · About</p>
+        <h2 class="display text-5xl md:text-6xl">Order,<br/>insight &amp;<br/><span class="text-gold">initiative.</span></h2>
+      </div>
+
+      <div class="lg:col-span-8 reveal">
+        <div class="flex flex-col md:flex-row gap-10">
+          <div class="md:w-full">
+            <p class="text-lg md:text-xl leading-relaxed text-ink/90">
+              Motivated B.Com (Hons) student at <span class="text-ink">Dyal Singh College, University of Delhi</span>,
+              with practical administrative experience gained through a professional internship and a strong track
+              record of academic and team leadership.
+            </p>
+            <p class="text-lg md:text-xl leading-relaxed text-dim mt-5">
+              Passionate about business operations, finance, communication, and organizational excellence — seeking
+              opportunities where initiative and analytical drive create measurable impact.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
+              <div class="glass card-hover p-5">
+                <p class="stat text-gold">8.5</p>
+                <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-dim mt-2">CGPA / 10.0</p>
+              </div>
+              <div class="glass card-hover p-5">
+                <p class="stat">90.4<span class="text-2xl">%</span></p>
+                <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-dim mt-2">CBSE Class XII</p>
+              </div>
+              <div class="glass card-hover p-5">
+                <p class="stat">06</p>
+                <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-dim mt-2">Team Members Led</p>
+              </div>
+              <div class="glass card-hover p-5">
+                <p class="stat">02</p>
+                <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-dim mt-2">Months Internship</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDUCATION ===================== -->
+<section id="education" class="relative z-10 py-28 md:py-36 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="flex items-end justify-between mb-16 reveal">
+      <div>
+        <p class="eyebrow mb-4">02 · Education</p>
+        <h2 class="display text-5xl md:text-6xl">Academic<br/>Record</h2>
+      </div>
+      <p class="hidden md:block font-mono text-xs tracking-[0.2em] uppercase text-dim max-w-xs text-right">
+        University of Delhi · Kendriya Vidyalaya · Kids Corner School
+      </p>
+    </div>
+
+    <div class="flex flex-col">
+      <!-- item -->
+      <div class="reveal group grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-8 border-t border-line">
+        <div class="md:col-span-2 font-mono text-sm text-dim">2023 — 2026</div>
+        <div class="md:col-span-5">
+          <h3 class="font-display text-2xl md:text-3xl group-hover:text-gold transition-colors">B.COM (HONS)</h3>
+          <p class="text-dim mt-1">Dyal Singh College, University of Delhi</p>
+        </div>
+        <div class="md:col-span-3 font-mono text-xs tracking-[0.2em] uppercase text-dim">In Progress</div>
+        <div class="md:col-span-2 text-right">
+          <span class="stat text-gold">8.5</span><span class="text-dim text-sm"> /10</span>
+        </div>
+      </div>
+
+      <div class="reveal group grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-8 border-t border-line">
+        <div class="md:col-span-2 font-mono text-sm text-dim">2023</div>
+        <div class="md:col-span-5">
+          <h3 class="font-display text-2xl md:text-3xl group-hover:text-gold transition-colors">CLASS XII — CBSE</h3>
+          <p class="text-dim mt-1">Kendriya Vidyalaya</p>
+        </div>
+        <div class="md:col-span-3 font-mono text-xs tracking-[0.2em] uppercase text-dim">Senior Secondary</div>
+        <div class="md:col-span-2 text-right">
+          <span class="stat">90.4</span><span class="text-dim text-sm">%</span>
+        </div>
+      </div>
+
+      <div class="reveal group grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-8 border-t border-b border-line">
+        <div class="md:col-span-2 font-mono text-sm text-dim">2021</div>
+        <div class="md:col-span-5">
+          <h3 class="font-display text-2xl md:text-3xl group-hover:text-gold transition-colors">CLASS X — CBSE</h3>
+          <p class="text-dim mt-1">Kids Corner School</p>
+        </div>
+        <div class="md:col-span-3 font-mono text-xs tracking-[0.2em] uppercase text-dim">Secondary</div>
+        <div class="md:col-span-2 text-right">
+          <span class="stat">87</span><span class="text-dim text-sm">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience" class="relative z-10 py-28 md:py-36 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="mb-16 reveal">
+      <p class="eyebrow mb-4">03 · Experience &amp; Leadership</p>
+      <h2 class="display text-5xl md:text-6xl">On The<br/>Record</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- main internship -->
+      <div class="reveal lg:col-span-2 glass card-hover p-8 md:p-10">
+        <div class="flex flex-wrap items-baseline justify-between gap-4 mb-6">
+          <h3 class="font-display text-2xl md:text-3xl">Stenographer Intern</h3>
+          <span class="font-mono text-xs tracking-[0.2em] uppercase text-gold">2024 · 2 Months</span>
+        </div>
+        <p class="text-dim mb-6">New Delhi · Administrative Operations Desk</p>
+        <ul class="space-y-4 text-ink/85">
+          <li class="flex gap-3"><span class="text-gold mt-1">—</span> Processed and maintained 50+ official records weekly with zero errors, streamlining filing and retrieval across departments.</li>
+          <li class="flex gap-3"><span class="text-gold mt-1">—</span> Provided end-to-end administrative support including correspondence management, scheduling, and inter-departmental coordination.</li>
+          <li class="flex gap-3"><span class="text-gold mt-1">—</span> Delivered high-speed, accurate data entry in a deadline-driven environment, improving typing efficiency and output consistency.</li>
+          <li class="flex gap-3"><span class="text-gold mt-1">—</span> Collaborated with a team of 8 professionals, building workplace communication skills and adaptability in a formal office setting.</li>
+        </ul>
+      </div>
+
+      <!-- leadership stack -->
+      <div class="flex flex-col gap-6">
+        <div class="reveal glass card-hover p-8 flex-1">
+          <span class="font-mono text-xs tracking-[0.2em] uppercase text-gold">2023 — Present</span>
+          <h3 class="font-display text-xl md:text-2xl mt-3">Group Coordinator</h3>
+          <p class="text-dim text-sm mb-4">Academic Projects · Dyal Singh College</p>
+          <p class="text-ink/85 text-sm leading-relaxed">Led a 6-member team across B.Com (Hons) assignments and presentations — primary contact between team and faculty, streamlining feedback and planning.</p>
+        </div>
+        <div class="reveal glass card-hover p-8 flex-1">
+          <span class="font-mono text-xs tracking-[0.2em] uppercase text-gold">Ongoing</span>
+          <h3 class="font-display text-xl md:text-2xl mt-3">Event Volunteer</h3>
+          <p class="text-dim text-sm mb-4">College Cultural Committee · Dyal Singh College</p>
+          <p class="text-ink/85 text-sm leading-relaxed">Coordinated logistics and attendee management for college-wide events, contributing to smooth execution and a positive campus experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills" class="relative z-10 py-28 md:py-36 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="mb-16 reveal">
+      <p class="eyebrow mb-4">04 · Skills</p>
+      <h2 class="display text-5xl md:text-6xl">Tools Of<br/>The Trade</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+      <!-- technical -->
+      <div class="reveal">
+        <p class="font-mono text-xs tracking-[0.3em] uppercase text-dim mb-8">Technical</p>
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>Microsoft Excel <span class="text-dim text-xs">(Pivot Tables, VLOOKUP, Analysis)</span></span><span class="font-mono text-gold">95%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="95%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>MS Word &amp; PowerPoint</span><span class="font-mono text-gold">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>Canva — Graphic Design</span><span class="font-mono text-gold">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="85%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2"><span>Google Workspace</span><span class="font-mono text-gold">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88%"></div></div>
+          </div>
+        </div>
+
+        <p class="font-mono text-xs tracking-[0.3em] uppercase text-dim mt-12 mb-6">Languages</p>
+        <div class="flex flex-wrap gap-3">
+          <span class="pill">Hindi — Fluent</span>
+          <span class="pill">English — Professional Working Proficiency</span>
+        </div>
+      </div>
+
+      <!-- professional -->
+      <div class="reveal">
+        <p class="font-mono text-xs tracking-[0.3em] uppercase text-dim mb-8">Professional</p>
+        <div class="flex flex-wrap gap-3">
+          <span class="pill">Business Communication</span>
+          <span class="pill">Documentation &amp; Records Management</span>
+          <span class="pill">Team Leadership</span>
+          <span class="pill">Event Coordination</span>
+          <span class="pill">Time Management</span>
+          <span class="pill">Stakeholder Coordination</span>
+          <span class="pill">Data Entry &amp; Accuracy</span>
+          <span class="pill">Office Administration</span>
+        </div>
+
+        <div class="mt-14 glass card-hover p-8">
+          <p class="font-mono text-xs tracking-[0.3em] uppercase text-gold mb-3">Extracurricular</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+            <div>
+              <h4 class="font-display text-lg">Badminton</h4>
+              <p class="text-dim text-sm mt-1 leading-relaxed">Competitive recreational player — reinforcing strategic thinking, resilience and fitness management.</p>
+            </div>
+            <div>
+              <h4 class="font-display text-lg">Public Speaking</h4>
+              <p class="text-dim text-sm mt-1 leading-relaxed">Consistent participant in college presentations and group discussions, sharpening stakeholder communication.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACHIEVEMENTS ===================== -->
+<section id="achievements" class="relative z-10 py-28 md:py-36 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="mb-16 reveal">
+      <p class="eyebrow mb-4">05 · Achievements</p>
+      <h2 class="display text-5xl md:text-6xl">Marked &amp;<br/>Measured</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="reveal glass card-hover p-8">
+        <p class="stat text-gold">90.4<span class="text-2xl">%</span></p>
+        <p class="text-sm text-dim mt-4 leading-relaxed">CBSE Class XII Boards — top-tier performance at Kendriya Vidyalaya.</p>
+      </div>
+      <div class="reveal glass card-hover p-8">
+        <p class="stat text-gold">8.5</p>
+        <p class="text-sm text-dim mt-4 leading-relaxed">CGPA maintained throughout B.Com (Hons) — consistent academic excellence at University of Delhi.</p>
+      </div>
+      <div class="reveal glass card-hover p-8">
+        <p class="stat text-gold">2 Mo</p>
+        <p class="text-sm text-dim mt-4 leading-relaxed">Completed a formal internship, building professional administrative and documentation competency.</p>
+      </div>
+      <div class="reveal glass card-hover p-8">
+        <p class="stat text-gold">6+</p>
+        <p class="text-sm text-dim mt-4 leading-relaxed">Recognised for leadership in group academic work, consistently delivering results under time pressure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERTIFICATIONS ===================== -->
+<section id="certifications" class="relative z-10 py-28 md:py-36 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="mb-16 reveal">
+      <p class="eyebrow mb-4">06 · Certifications</p>
+      <h2 class="display text-5xl md:text-6xl">Credentials</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="reveal glass card-hover p-8">
+        <div class="font-mono text-xs tracking-[0.2em] uppercase text-gold mb-4">Certificate · 01</div>
+        <h3 class="font-display text-xl mb-3">Microsoft Excel Basics</h3>
+        <p class="text-dim text-sm leading-relaxed">Data management and spreadsheet analysis fundamentals.</p>
+      </div>
+      <div class="reveal glass card-hover p-8">
+        <div class="font-mono text-xs tracking-[0.2em] uppercase text-gold mb-4">Certificate · 02</div>
+        <h3 class="font-display text-xl mb-3">Business Communication</h3>
+        <p class="text-dim text-sm leading-relaxed">Professional writing, presentations, and corporate correspondence.</p>
+      </div>
+      <div class="reveal glass card-hover p-8">
+        <div class="font-mono text-xs tracking-[0.2em] uppercase text-gold mb-4">Certificate · 03</div>
+        <h3 class="font-display text-xl mb-3">Canva Design Course</h3>
+        <p class="text-dim text-sm leading-relaxed">Visual communication, branding, and digital design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="relative z-10 py-28 md:py-40 border-t border-line overflow-hidden">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+    <div class="reveal text-center max-w-3xl mx-auto">
+      <p class="eyebrow mb-6 justify-center flex">07 · Contact</p>
+      <h2 class="display text-6xl md:text-8xl">Let's Work<br/>Together</h2>
+      <p class="text-dim text-lg mt-8 max-w-xl mx-auto">
+        Open to opportunities in finance, operations, and business administration —
+        let's connect and build something measurable.
+      </p>
+
+      <div class="mt-12 flex justify-center">
+        <a href="mailto:singhsiya045@gmail.com" class="magnetic">
+          <span class="btn-primary magnetic-inner !text-sm !px-10 !py-5">singhsiya045@gmail.com</span>
+        </a>
+      </div>
+
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 font-mono text-xs tracking-[0.2em] uppercase text-dim">
+        <a href="tel:+918445363877" class="nav-link hover:text-ink transition-colors">+91 84453 63877</a>
+        <a href="https://linkedin.com/in/siya" target="_blank" rel="noopener" class="nav-link hover:text-ink transition-colors">linkedin.com/in/siya</a>
+        <span>New Delhi, India</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="relative z-10 border-t border-line">
+  <div class="max-w-[1500px] mx-auto px-6 md:px-12 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="font-display text-sm tracking-widest">SIYA<span class="text-gold">.</span></p>
+    <p class="font-mono text-[11px] tracking-[0.2em] uppercase text-dim">© 2026 · Designed &amp; Built with intention</p>
+  </div>
+</footer>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>
